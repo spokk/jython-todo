@@ -23,8 +23,8 @@ jobs:
           key: ${CI_COMMIT_REF_SLUG}
       - name: yarn test
         run: |
-          cd web-app	
-          yarn 	
+          cd web-app
+          yarn
           yarn test
         env:
           CI: true
