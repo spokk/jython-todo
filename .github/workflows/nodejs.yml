@@ -2,7 +2,7 @@ name: Node CI
 
 on: [push]
 
-cache: &global_cache
+cache:
   key: ${CI_COMMIT_REF_SLUG}
   paths:
     - web-app/node_modules/
