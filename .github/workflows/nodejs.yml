@@ -7,9 +7,12 @@ cache: &global_cache
   paths:
     - web-app/node_modules/
 
+before_script:
+  run: |
+    cd web-app
+    yarn
+
 jobs:
-  cache:
-    <<: *global_cache
   build:
     runs-on: ubuntu-latest
 
@@ -23,10 +26,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-      - name: yarn install, build, and test
-        run: |
-          cd web-app
-          yarn
-          yarn test
+      - name: yarn test
+        run: yarn test
         env:
           CI: true
