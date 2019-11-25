@@ -1,0 +1,20 @@
+name: Flutter CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    container:
+      image:  google/dart:latest
+
+    steps:
+    - name: Flutter action
+      uses: subosito/flutter-action@v1.1.1
+
+    - name: Install dependencies
+      run: cd mobile-app/mobile_app/ && flutter pub get          
+    - name: Run tests
+      run: cd mobile-app/mobile_app/ && flutter pub run test
