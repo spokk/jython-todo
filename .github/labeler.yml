@@ -1,0 +1,8 @@
+WEB:
+  - web-app/**/*
+  
+MOBILE:
+  - mobile-app/**/*
+  
+API:
+  - backend-crud-api/**/*
