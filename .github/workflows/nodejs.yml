@@ -2,10 +2,6 @@ name: Node CI
 
 on: [push]
 
-cache:
-  paths:
-    - web-app/node_modules/
-
 jobs:
   build:
     runs-on: ubuntu-latest
