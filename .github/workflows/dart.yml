@@ -13,6 +13,6 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Install dependencies
-      run: cd mobile-app/mobile_app/ && pub get          
+      run: cd mobile-app/mobile_app/ && flutter pub get          
     - name: Run tests
       run: pub run test
