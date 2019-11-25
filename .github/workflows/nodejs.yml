@@ -2,11 +2,6 @@ name: Node CI
 
 on: [push]
 
-cache:
-  key: ${CI_COMMIT_REF_SLUG}
-  paths:
-    - web-app/node_modules/
-
 before_script:
   run: |
     cd web-app
@@ -26,6 +21,11 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
+      - name: Node.js cache
+        uses: actions/cache@v1
+        with:
+          path: web-app/node_modules/
+          key: ${CI_COMMIT_REF_SLUG}
       - name: yarn test
         run: yarn test
         env:
