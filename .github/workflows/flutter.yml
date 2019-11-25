@@ -6,15 +6,13 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-
-    container:
-      image:  google/dart:latest
-
     steps:
-    - name: Flutter action
-      uses: subosito/flutter-action@v1.1.1
-
-    - name: Install dependencies
-      run: cd mobile-app/mobile_app/ && flutter pub get          
-    - name: Run tests
-      run: cd mobile-app/mobile_app/ && flutter pub run test
+    - uses: actions/checkout@v1
+    - uses: actions/setup-java@v1
+      with:
+	java-version: '12.x'
+    - uses: subosito/flutter-action@v1
+      with:
+	flutter-version: '1.7.8+hotfix.4'
+    - run: cd mobile-app/mobile_app && flutter pub get
+    - run: cd mobile-app/mobile_app && flutter test
