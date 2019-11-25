@@ -16,4 +16,5 @@ jobs:
     - run: |
         cd mobile-app/mobile_app
         flutter pub get
+        flutter test
         flutter build aot
