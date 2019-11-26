@@ -7,24 +7,64 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mockito/mockito.dart';
 
 import 'package:mobile_app/main.dart';
 
+class MockNavigatorObserver extends NavigatorObserver {
+  OnObservation onPushed;
+  OnObservation onPopped;
+  OnObservation onRemoved;
+  OnObservation onReplaced;
+
+  @override
+  void didPush(Route<dynamic> route, Route<dynamic> previousRoute) {
+    if (onPushed != null) {
+      onPushed(route, previousRoute);
+    }
+  }
+
+  @override
+  void didPop(Route<dynamic> route, Route<dynamic> previousRoute) {
+    if (onPopped != null) {
+      onPopped(route, previousRoute);
+    }
+  }
+
+  @override
+  void didRemove(Route<dynamic> route, Route<dynamic> previousRoute) {
+    if (onRemoved != null)
+      onRemoved(route, previousRoute);
+  }
+
+  @override
+  void didReplace({ Route<dynamic> oldRoute, Route<dynamic> newRoute }) {
+    if (onReplaced != null)
+      onReplaced(newRoute, oldRoute);
+  }
+}
+
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(MyApp());
+  testWidgets('Button is present and triggers navigation after tapped', (WidgetTester tester) async {
+    final mockObserver = MockNavigatorObserver();
+    await tester.pumpWidget(
+      MaterialApp(
+        home: TodoList(),
+        navigatorObservers: [mockObserver],
+      ),
+    );
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    expect(find.byType(FloatingActionButton), findsOneWidget);
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+    await tester.tap(find.byType(FloatingActionButton));
+    await tester.pumpAndSettle();
+
+    verify(mockObserver.didPush(typed(any), typed(any)));
+
+    expect(find.byType(MaterialPageRoute), findsOneWidget)
 
     // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    // expect(find.text('Item 0'), findsNothing);
+    // expect(find.text('Item 1'), findsOneWidget);
   });
 }
