@@ -32,7 +32,35 @@ class TodoDao {
 
     List<Todo> items =
           result.isNotEmpty ? result.map((item) => Todo.fromDbJson(item)).toList() : [];
-    
+
     return items;
+  }
+
+  Future<int> updateItems(Todo todo) async {
+    final db =
+        await dbProvider.database;
+
+    var result = await db.update(todoTable, todo.toDbJson(),
+        where: "id = ?", whereArgs: [todo.id]);
+
+    return result;
+  }
+
+  Future<int> deleteItem(int id) async {
+    final db =
+        await dbProvider.database;
+
+    var result = await db.delete(todoTable, where: "id = ?", whereArgs: [id]);
+
+    return result;
+  }
+
+  Future deleteAllItems() async {
+    final db =
+        await dbProvider.database;
+
+    var result = await db.delete(todoTable);
+
+    return result;
   }
 }
