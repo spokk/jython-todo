@@ -1,4 +1,7 @@
-import { combineReducers } from 'redux';
+import { combineReducers, Reducer } from 'redux';
 import test from './test';
+import { AppState } from './interfaces';
 
-export default combineReducers({ test });
+const rootReducer: Reducer<AppState> = combineReducers<AppState>({ test });
+
+export default rootReducer;
