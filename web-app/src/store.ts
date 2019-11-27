@@ -4,7 +4,11 @@ import createSagaMiddleware from 'redux-saga';
 import rootReducer from './reducers';
 import rootSaga from './sagas';
 
-const initialState = {};
+const initialState = {
+  test: {
+    test: 0
+  }
+};
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -17,7 +21,5 @@ const enhancer = composeEnhancers(applyMiddleware(...middleware));
 const store = createStore(rootReducer, initialState, enhancer);
 
 sagaMiddleware.run(rootSaga);
-
-export const action = type => store.dispatch({ type });
 
 export default store;

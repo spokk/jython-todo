@@ -1,22 +1,20 @@
 import React from 'react';
-import store, { action } from './store';
+import { AppState } from './reducers/interfaces';
 
-import { Provider } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 
 import './App.sass';
 
 const App: React.FC = () => {
+  const test = useSelector((state: AppState) => state.test.test);
+  const dispatch = useDispatch();
   return (
-    <Provider store={store}>
-      <div className="App">
-        <header className="App-header">
-          <a className="App-link" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-            Learn React
-          </a>
-          <button onClick={() => action('TEST_ASYNC')}>btn</button>
-        </header>
-      </div>
-    </Provider>
+    <div className="App">
+      <header className="App-header">
+        <h1>{test}</h1>
+        <button onClick={() => dispatch({ type: 'TEST_ASYNC' })}>btn</button>
+      </header>
+    </div>
   );
 };
 
