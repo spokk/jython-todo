@@ -1,4 +1,19 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+
+import 'model/post.dart';
+
+Future<Post> fetchPost() async {
+  final response =
+    await http.get('https://jsonplaceholder.typicode.com/posts/1');
+
+  if(response.statusCode == 200)
+    return Post.fromJson(json.decode(response.body));
+  else
+    throw Exception('Failed to load post');
+}
 
 void main() => runApp(MyApp());
 
@@ -8,7 +23,7 @@ class MyApp extends StatelessWidget {
     return new MaterialApp(
       title: 'TODO',
       theme: ThemeData(
-        primarySwatch: Colors.deepOrange,
+        primarySwatch: Colors.deepPurple,
       ),
       home: new TodoList()
     );
@@ -21,7 +36,14 @@ class TodoList extends StatefulWidget {
 }
 
 class TodoListState extends State<TodoList> {
+  Future<Post> post;
   List<String> _todoItems = [];
+
+  @override
+  void initState() {
+    super.initState();
+    post = fetchPost();
+  }
 
   void _addTodoItem(String task) {
     if (task.length > 0) {
@@ -88,6 +110,36 @@ class TodoListState extends State<TodoList> {
       ),
     );
   }
+
+//  @override
+//  Widget build(BuildContext context) {
+//    return MaterialApp(
+//      title: 'Fetch Data Example',
+//      theme: ThemeData(
+//        primarySwatch: Colors.blue,
+//      ),
+//      home: Scaffold(
+//        appBar: AppBar(
+//          title: Text('Fetch Data Example'),
+//        ),
+//        body: Center(
+//          child: FutureBuilder<Post>(
+//            future: post,
+//            builder: (context, snapshot) {
+//              if (snapshot.hasData) {
+//                return Text(snapshot.data.title);
+//              } else if (snapshot.hasError) {
+//                return Text("${snapshot.error}");
+//              }
+//
+//              // By default, show a loading spinner.
+//              return CircularProgressIndicator();
+//            },
+//          ),
+//        ),
+//      ),
+//    );
+//  }
 
   void _pushAddTodoScreen() {
     Navigator.of(context).push(
