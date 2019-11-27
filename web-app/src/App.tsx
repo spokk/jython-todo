@@ -12,7 +12,7 @@ const App: React.FC = () => {
     <div className="App">
       <header className="App-header">
         <h1>{test}</h1>
-        <button onClick={() => dispatch({ type: 'TEST_ASYNC' })}>btn</button>
+        <button onClick={() => dispatch({ type: 'TEST_ASYNC' })}>Button</button>
       </header>
     </div>
   );
