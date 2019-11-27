@@ -1,7 +1,7 @@
 import { TEST } from '../actions/types';
 import { Test } from './interfaces';
 
-const initialState = {
+const initialState: Test = {
   test: 0
 };
 
