@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:mobile_app/ui/home_page.dart';
 
 import 'model/post.dart';
 
@@ -20,14 +21,26 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(
-      title: 'TODO',
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Todo',
       theme: ThemeData(
-        primarySwatch: Colors.deepPurple,
+        primarySwatch: Colors.indigo,
+        canvasColor: Colors.transparent,
       ),
-      home: new TodoList()
+      home: HomePage(title: 'Todo List'),
     );
   }
+//  @override
+//  Widget build(BuildContext context) {
+//    return new MaterialApp(
+//      title: 'TODO',
+//      theme: ThemeData(
+//        primarySwatch: Colors.deepPurple,
+//      ),
+//      home: new TodoList()
+//    );
+//  }
 }
 
 class TodoList extends StatefulWidget {
@@ -110,36 +123,6 @@ class TodoListState extends State<TodoList> {
       ),
     );
   }
-
-//  @override
-//  Widget build(BuildContext context) {
-//    return MaterialApp(
-//      title: 'Fetch Data Example',
-//      theme: ThemeData(
-//        primarySwatch: Colors.blue,
-//      ),
-//      home: Scaffold(
-//        appBar: AppBar(
-//          title: Text('Fetch Data Example'),
-//        ),
-//        body: Center(
-//          child: FutureBuilder<Post>(
-//            future: post,
-//            builder: (context, snapshot) {
-//              if (snapshot.hasData) {
-//                return Text(snapshot.data.title);
-//              } else if (snapshot.hasError) {
-//                return Text("${snapshot.error}");
-//              }
-//
-//              // By default, show a loading spinner.
-//              return CircularProgressIndicator();
-//            },
-//          ),
-//        ),
-//      ),
-//    );
-//  }
 
   void _pushAddTodoScreen() {
     Navigator.of(context).push(

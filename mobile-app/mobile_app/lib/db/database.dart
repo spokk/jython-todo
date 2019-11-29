@@ -25,6 +25,7 @@ class DbProvider {
 
     var db =
         await openDatabase(path, version: 1, onCreate: initDb);
+    return db;
   }
 
   void initDb(Database db, int version) async {

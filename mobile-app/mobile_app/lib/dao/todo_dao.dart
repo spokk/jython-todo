@@ -24,7 +24,7 @@ class TodoDao {
             await db.query(todoTable,
             columns: col,
             where: 'description LIKE ?',
-            whereArgs: ["%query"]);
+            whereArgs: ["%$query%"]);
     } else {
       result =
           await db.query(todoTable, columns: col);
