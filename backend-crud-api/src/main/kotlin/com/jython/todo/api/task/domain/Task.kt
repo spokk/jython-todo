@@ -1,18 +1,12 @@
-package com.jython.todo.api.task.domain;
+package com.jython.todo.api.task.domain
 
-import lombok.Value;
+data class Task(val id: Id?, val description: String) {
 
-@Value
-public class Task {
-  private Id id;
-  private String description;
+    companion object {
+        fun withNoId(description: String): Task {
+            return Task(null, description)
+        }
+    }
 
-  public static Task withNoId(String description) {
-    return new Task(null, description);
-  }
-
-  @Value
-  public static class Id {
-    private Long value;
-  }
+    class Id(val value: Long)
 }
