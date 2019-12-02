@@ -8,5 +8,5 @@ data class Task(val id: Id?, val description: String) {
         }
     }
 
-    class Id(val value: Long)
+    class Id(val value: Long?)
 }

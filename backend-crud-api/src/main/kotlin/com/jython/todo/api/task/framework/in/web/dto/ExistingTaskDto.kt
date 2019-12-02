@@ -1,14 +1,10 @@
-package com.jython.todo.api.task.framework.in.web.dto;
+package com.jython.todo.api.task.framework.`in`.web.dto
 
-import com.jython.todo.api.task.domain.Task;
-import lombok.Data;
+import com.jython.todo.api.task.domain.Task
 
-@Data
-public class ExistingTaskDto {
-  private final Long id;
-  private final String description;
+data class ExistingTaskDto(val id: Long?, val description: String?) {
 
-  public static ExistingTaskDto fromDomain(Task task) {
-    return new ExistingTaskDto(task.getId().getValue(), task.getDescription());
-  }
+    companion object {
+        fun fromDomain(task: Task): ExistingTaskDto = ExistingTaskDto(task.id!!.value, task.description)
+    }
 }

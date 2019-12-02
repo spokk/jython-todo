@@ -1,34 +1,33 @@
-package com.jython.todo.api.task.framework.in.web;
+package com.jython.todo.api.task.framework.`in`.web
 
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.web.servlet.MockMvc;
-
-import static org.hamcrest.Matchers.equalTo;
-import static org.springframework.boot.jdbc.EmbeddedDatabaseConnection.H2;
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import org.hamcrest.Matchers.equalTo
+import org.junit.jupiter.api.Test
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.boot.jdbc.EmbeddedDatabaseConnection
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
+import org.springframework.boot.test.context.SpringBootTest
+import org.springframework.http.MediaType
+import org.springframework.test.web.servlet.MockMvc
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers.*
 
 @SpringBootTest
 @AutoConfigureMockMvc
-@AutoConfigureTestDatabase(connection = H2)
-class CreateTaskControllerTest {
+@AutoConfigureTestDatabase(connection = EmbeddedDatabaseConnection.H2)
+internal class CreateTaskControllerTest() {
 
-  @Autowired
-  private MockMvc mockMvc;
+    @Autowired
+    private val mockMvc: MockMvc? = null
 
-  @Test
-  void create() throws Exception {
-    mockMvc.perform(
-        post("/task")
-            .contentType(APPLICATION_JSON_VALUE)
-            .content("{\"description\" : \"val\"}"))
-        .andExpect(status().isCreated())
-        .andExpect(redirectedUrlPattern("/task/*"))
-        .andExpect(jsonPath("$.description", equalTo("val")));
-  }
+    @Test
+    fun create() {
+        mockMvc!!.perform(
+                MockMvcRequestBuilders.post("/task")
+                        .contentType(MediaType.APPLICATION_JSON_VALUE)
+                        .content("{\"description\" : \"val\"}"))
+                .andExpect(status().isCreated)
+                .andExpect(redirectedUrlPattern("/task/*"))
+                .andExpect(jsonPath("$.description", equalTo("val")))
+    }
 }
